@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Attendance System Using Face Recognition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/...'); /* Your background image */
+            background-size: cover;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .table {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            text-align: center;
+        }
+
+        .date-container {
+            display: flex;
+            max-width: 320px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .date-container input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .date-container button {
+            padding: 10px 15px;
+            border: 1px solid #007bff;
+            background-color: #007bff;
+            color: white;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+
+        .date-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .calendar-icon {
+            font-size: 18px;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center text-white" style="margin-bottom:20px;">Attendance Data for {{ date }}</h1>
+
+        <!-- Date Picker Form -->
+        <form action="/fetchattendancedata" method="POST" class="text-center">
+            <div class="date-container">
+                <input type="date" id="date" name="date" class="form-control" required>
+                <button type="button" onclick="document.getElementById('date').showPicker();">
+                    <i class="fa fa-calendar-alt calendar-icon"></i> Select Date
+                </button>
+            </div>
+            <button type="submit" class="btn btn-primary">Fetch Data</button>
+        </form>
+
+        <!-- Attendance Table -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Registration ID</th>
+                    <th>Student Name</th>
+                    <th>Gender</th>
+                    <th>Class</th>
+                    <th>Section</th>
+                    <th>Entry Time</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                    <td>{{ row[4] }}</td>
+                    <td>{{ row[5] }}</td>
+                    <td>{{ row[6] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+</html>
